@@ -17,11 +17,14 @@ extension User: UserCellData {
 
 class ViewController: UIViewController {
     var dataSource: GLDataSource<User>?
+    var userTableCellDelegate: UserTableViewCellDelegate?
+    var tableDelegate: GLTableDelegate?
+
     let cellIdentifier = "UserCell"
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+
         setupUI()
         setupDataSource()
         fetchData()
@@ -31,33 +34,40 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     lazy var tableView: UITableView = {
         let v = UITableView(frame: .zero, style: .Plain)
         v.rowHeight = UITableViewAutomaticDimension
         v.estimatedRowHeight = 60
         return v
     }()
-    
+
     lazy var dataManager: UserDataManager = {
         return UserDataManager()
     }()
-    
+
     func setupUI() {
         view.addSubview(tableView)
         tableView.snp_makeConstraints { (make) in
             make.edges.equalTo(view)
         }
-        
     }
-    
+
     func setupDataSource() {
         tableView.registerClass(UserTableCell.self, forCellReuseIdentifier: cellIdentifier)
+
+
 
         dataSource = GLDataSource(items: dataManager.items, cellIdentifier: cellIdentifier, configCellHandle: { (cell, item, indexPath) in
             guard let aCell = cell as? UserTableCell else { return }
             aCell.data = item
+            aCell.delegate = self.userTableCellDelegate
         })
+
+        userTableCellDelegate = UserTableViewCellDelegate(dataSource: dataSource!, tableView: tableView)
+        tableDelegate = GLTableDelegate(dataSource: dataSource!)
+
+        tableView.delegate = tableDelegate
         tableView.dataSource = dataSource
     }
 
@@ -72,4 +82,3 @@ class ViewController: UIViewController {
         tableView.reloadData()
     }
 }
-

@@ -16,6 +16,8 @@
 		384283C71D6C91FF00F8992B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384283C61D6C91FF00F8992B /* User.swift */; };
 		384283C91D6C92EB00F8992B /* UserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384283C81D6C92EB00F8992B /* UserDataManager.swift */; };
 		384283CB1D6C982400F8992B /* UserTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384283CA1D6C982400F8992B /* UserTableCell.swift */; };
+		67CD9B5A1D76D23D006B2A2D /* UserTableViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CD9B591D76D23D006B2A2D /* UserTableViewCellDelegate.swift */; };
+		67CD9B5C1D76D5DB006B2A2D /* GLTableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CD9B5B1D76D5DB006B2A2D /* GLTableDelegate.swift */; };
 		7940843BB9C5704E2F8E34B3 /* Pods_LightTableViewDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EB247963F3B8F550880ED24 /* Pods_LightTableViewDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +35,8 @@
 		384283C81D6C92EB00F8992B /* UserDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataManager.swift; sourceTree = "<group>"; };
 		384283CA1D6C982400F8992B /* UserTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableCell.swift; sourceTree = "<group>"; };
 		3EB247963F3B8F550880ED24 /* Pods_LightTableViewDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LightTableViewDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		67CD9B591D76D23D006B2A2D /* UserTableViewCellDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewCellDelegate.swift; sourceTree = "<group>"; };
+		67CD9B5B1D76D5DB006B2A2D /* GLTableDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLTableDelegate.swift; sourceTree = "<group>"; };
 		C2FA63688E730C4EF5F6211C /* Pods-LightTableViewDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LightTableViewDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LightTableViewDemo/Pods-LightTableViewDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -75,6 +79,8 @@
 				384283C81D6C92EB00F8992B /* UserDataManager.swift */,
 				384283C61D6C91FF00F8992B /* User.swift */,
 				384283CA1D6C982400F8992B /* UserTableCell.swift */,
+				67CD9B591D76D23D006B2A2D /* UserTableViewCellDelegate.swift */,
+				67CD9B5B1D76D5DB006B2A2D /* GLTableDelegate.swift */,
 				384283B61D6C834100F8992B /* Main.storyboard */,
 				384283B91D6C834100F8992B /* Assets.xcassets */,
 				384283BB1D6C834100F8992B /* LaunchScreen.storyboard */,
@@ -135,7 +141,7 @@
 				TargetAttributes = {
 					384283AE1D6C834000F8992B = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = UR66U6L4H7;
+						DevelopmentTeam = 7222NJYTRF;
 					};
 				};
 			};
@@ -183,7 +189,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		B79EE412629C1E88FA30F3FC /* [CP] Copy Pods Resources */ = {
@@ -226,8 +232,10 @@
 				384283C71D6C91FF00F8992B /* User.swift in Sources */,
 				384283B51D6C834000F8992B /* ViewController.swift in Sources */,
 				384283C91D6C92EB00F8992B /* UserDataManager.swift in Sources */,
+				67CD9B5A1D76D23D006B2A2D /* UserTableViewCellDelegate.swift in Sources */,
 				384283CB1D6C982400F8992B /* UserTableCell.swift in Sources */,
 				384283B31D6C834000F8992B /* AppDelegate.swift in Sources */,
+				67CD9B5C1D76D5DB006B2A2D /* GLTableDelegate.swift in Sources */,
 				384283C51D6C8E3200F8992B /* GLDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -343,10 +351,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = LightTableViewDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.study1234.LightTableViewDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -356,10 +366,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = LightTableViewDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.study1234.LightTableViewDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

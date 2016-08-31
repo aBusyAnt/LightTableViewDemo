@@ -27,15 +27,15 @@ class UserTableCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
     var data: UserCellData? {
         didSet {
             guard let cellData = data else { return }
-            
+
             nameLabel.text = cellData.name
             websiteBtn.setTitle(cellData.website, forState: .Normal)
             tagLabel.text = cellData.tagString
-            
+
         }
     }
 
@@ -44,17 +44,18 @@ class UserTableCell: UITableViewCell {
         setupUI()
         setupConstraints()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func setupUI() {
         addSubview(nameLabel)
         addSubview(websiteBtn)
         addSubview(tagLabel)
+        addSubview(btn)
     }
-    
+
     func setupConstraints() {
         nameLabel.snp_makeConstraints { (make) in
             make.left.top.equalTo(self).offset(5)
@@ -69,26 +70,50 @@ class UserTableCell: UITableViewCell {
             make.top.equalTo(websiteBtn.snp_bottom).offset(5)
             make.bottom.equalTo(self).offset(-5)
         }
+        btn.snp_makeConstraints { (make) in
+            make.right.equalTo(self).offset(-5)
+            make.centerY.equalTo(self)
+            make.width.equalTo(60)
+        }
     }
-    
+
     lazy var nameLabel: UILabel = {
         let v = UILabel()
         v.font = UIFont.boldSystemFontOfSize(14)
         v.textColor = UIColor.redColor()
         return v
     }()
-    
+
     lazy var websiteBtn: UIButton = {
         let v = UIButton()
         v.setTitleColor(UIColor.blueColor(), forState: .Normal)
         return v
     }()
-    
+
     lazy var tagLabel: UILabel = {
         let v = UILabel()
         v.font = UIFont.systemFontOfSize(12)
         v.textColor = UIColor.grayColor()
         return v
     }()
-    
+
+
+    lazy var btn: UIButton = {
+        let v = UIButton(type: .Custom)
+        v.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        v.setTitle("Follow", forState: .Normal)
+        v.backgroundColor = UIColor.greenColor()
+        v.addTarget(self, action: #selector(buttonClickHandle(_:)), forControlEvents: .TouchUpInside)
+        return v
+    }()
+
+    weak var delegate: UserCellDelegate?
+
+    func buttonClickHandle(btn: UIButton) {
+        delegate?.followBtnClickHandle?(self, btn: btn)
+    }
+}
+
+@objc protocol UserCellDelegate {
+    optional func followBtnClickHandle(cell: UITableViewCell, btn: UIButton)
 }
